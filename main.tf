@@ -45,7 +45,7 @@ resource "aws_route" "public_internet_gateway" {
 # Private routes
 #################
 resource "aws_route_table" "private" {
-  count = "${length(var.azs)}"
+  count = "${signum(length(var.private_subnets) + var.enable_nat_gateway) > 0 ? length(var.azs) : 0}"
 
   vpc_id           = "${aws_vpc.this.id}"
   propagating_vgws = ["${var.private_propagating_vgws}"]
