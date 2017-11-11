@@ -33,7 +33,7 @@ resource "aws_route_table" "public" {
   tags = "${merge(var.tags, var.public_route_table_tags, map("Name", format("%s-public", var.name)))}"
 }
 
-resource "aws_route" "public_internet_gateway" {
+resource "aws_route" "public" {
   count = "${length(var.public_subnets) > 0 ? 1 : 0}"
 
   route_table_id         = "${aws_route_table.public.id}"
